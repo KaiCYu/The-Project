@@ -9,7 +9,7 @@ const vision = gcloud.vision;
 var visionClient;
 if (process.env.NODE_ENV === 'production') {
   visionClient = vision({
-    projectId: 'gewd-162918',
+    projectId: 'gewd-162917',
     credentials: {
       client_email: process.env.client_email,
       private_key: process.env.private_key.replace(/\\n/g, '\n')
@@ -17,7 +17,7 @@ if (process.env.NODE_ENV === 'production') {
   });
 } else {
   visionClient = vision({
-    projectId: 'gewd-162918',
+    projectId: 'gewd-162917',
     keyFilename: __dirname + '/config/gewd.json'
   });
 }

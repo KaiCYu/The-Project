@@ -195,6 +195,14 @@ app.get('/testing', function(req, res) {
   console.log('req.session.user is ========', req.session.user);
 });
 
+app.get('/recent-trips', (req, res) => {
+  console.log('req.body==============', req.body);
+  db.getReceiptsAndTrips({adminName: req.body.username, tripName: req.body.tripName})
+  .then( (results) => {
+    res.send(results);
+  });
+});
+
 //To be used for testing and seeing requests
 app.post('/createTripName', function(req, res) {
   //With the received request, use model function to submit the tripname to the database
@@ -212,6 +220,7 @@ app.post('/createTripName', function(req, res) {
 
 let uploadCloud = () => {
   cloudinary.uploader.upload(__dirname + '/temp/filename.jpg', function(data) {
+    console.log(data);
   });
 };
 app.post('/upload', function(req, res) {
@@ -230,7 +239,7 @@ app.post('/upload', function(req, res) {
     gVision.promisifiedDetectText(image)
     .then(function(results) {
       let allItems = results[0];
-      // uploadCloud();
+      uploadCloud();
       res.send(gVision.spliceReceipt(allItems.split('\n')));
     })
     .error(function(e) {
@@ -248,13 +257,6 @@ app.post('/summary', (req, res) => {
   db.createMemberSummary(req.body);
 });
 
-// this will duplicate with Duy's /recent
-app.post('/recent', (req, res) => {
-  db.getReceiptsAndTrips({adminName: req.body.username, tripName: req.body.tripName})
-  .then( (results) => {
-    res.send(results);
-  });
-});
 
 //gVision.spliceReceipt produces an object of item : price pairs
 app.post('/vision', function(req, res) {

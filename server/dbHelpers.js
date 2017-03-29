@@ -242,7 +242,9 @@ const assignItemsToMembers = (allItemsArray, params) => {
 }
 
 const createMemberSummary = (params) => {
-  // console.log('----params passed down to Server here!!!!------', params);
+
+  //params is the entire state
+  console.log('----params passed down to Server here!!!!------', params);
   let tripName = params.tripName;
   // NEED: fb_id, name, email, token
   let adminName = params.username;
@@ -256,6 +258,7 @@ const createMemberSummary = (params) => {
   let memberArrayWithDupes = [].concat.apply([], params.members);
   let noDupeMemberArray = [].concat.apply([], params.members);
   noDupeMemberArray.shift();
+
   let allItemsArray = [];
   for (let i = 0; i < params.items.length; i++) {
     allItemsArray.push(params.items[i][0].name);
@@ -301,14 +304,18 @@ const getReceiptsAndTrips = (params) => {
 
   const queryStringGetAllTripsFromAdminName = `SELECT trips.name FROM ` + database + `trips WHERE trips.adminID = (SELECT members.id FROM ` + database + `members WHERE members.name = ?);`
   const queryStringGetTripIDFromTripName = `SELECT trips.id from ` + database + `trips WHERE trips.name = ?;`
-  // const queryStringGetMemberIDFromTripID = `SELECT trips_members.memberID from heroku_a258462d4ded143.trips_members WHERE trips_members.tripID = ?;`
-  // const queryStringGetMemberNameFromMemberID = `SELECT members.name FROM heroku_a258462d4ded143.members WHERE members.id = ?;`
 
-  // const queryStringGetReceiptNamesFromPayorIDAndTripID = `SELECT receipts.name FROM heroku_a258462d4ded143.receipts WHERE receipts.payorID = ? AND receipts.tripID = ?;`
 
-  // const queryStringGetSumBillFromReceiptName = `SELECT receipts.sum_bill FROM receipts WHERE receipts.name = ?;`
-  // const queryStringGetSumTaxFromReceiptName = `SELECT receipts.sum_tax FROM receipts WHERE receipts.name = ?;`
-  // const queryStringGetSumTipFromReceiptName = `SELECT receipts.sum_tip FROM receipts WHERE receipts.name = ?;`
+
+  
+  const queryStringGetMemberIDFromTripID = `SELECT trips_members.memberID from heroku_a258462d4ded143.trips_members WHERE trips_members.tripID = ?;`
+  const queryStringGetMemberNameFromMemberID = `SELECT members.name FROM heroku_a258462d4ded143.members WHERE members.id = ?;`
+
+  const queryStringGetReceiptNamesFromPayorIDAndTripID = `SELECT receipts.name FROM heroku_a258462d4ded143.receipts WHERE receipts.payorID = ? AND receipts.tripID = ?;`
+
+  const queryStringGetSumBillFromReceiptName = `SELECT receipts.sum_bill FROM receipts WHERE receipts.name = ?;`
+  const queryStringGetSumTaxFromReceiptName = `SELECT receipts.sum_tax FROM receipts WHERE receipts.name = ?;`
+  const queryStringGetSumTipFromReceiptName = `SELECT receipts.sum_tip FROM receipts WHERE receipts.name = ?;`
 
   let adminName = params.adminName;
   let tripName = params.tripName;

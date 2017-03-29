@@ -1,3 +1,5 @@
+//BREAKDOWN OF THE BILL
+
 import React from 'react';
 import { BrowserRouter as Router, Route, Link, Redirect} from 'react-router-dom';
 
@@ -12,6 +14,7 @@ class Breakdown extends React.Component {
   }
 
   render() {
+    console.log('PROPS IN BREAKDOWN ', this.props);
     return (
       <div>
           <Link to='/summary' className='back-history'>Calculation Summary</Link>
@@ -46,4 +49,3 @@ class Breakdown extends React.Component {
 }
 
 export default Breakdown;
-

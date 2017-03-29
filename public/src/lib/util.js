@@ -33,4 +33,10 @@ module.exports = {
     })
   }
 
+  //send GET request to query db for trip info 
+  retrieveTripInfo: () => {
+    $.get('/recent-trips', function (res) {
+
+    })
+  }
 }

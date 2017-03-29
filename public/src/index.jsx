@@ -277,7 +277,6 @@ class App extends React.Component {
     this.setState({memberSum: memberSum});
   }
 
-
   memberExist(member, cb) {
     let exist = false;
     this.state.members.forEach((val, index) => {
