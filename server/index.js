@@ -166,6 +166,7 @@ app.get('/verify', authHelper, function(req, res) {
   console.log('LOCAL STORAGE', localStorage);
   db.getAllFriends([localStorage.user.email], (err, result) => {
     if (err) {
+      console.log('ERROR IN GET ALL FRIENDS: ', err);
       res.status(500).send(err);
     } else {
       let userInfo = {
@@ -188,20 +189,18 @@ app.get('*', checkAuthentication, authHelper, (req, res) => {
   }
 });
 
-app.get('/testing', function(req, res) {
-  res.send('hello world');
-  console.log('req.cookies is ========', req.cookies);
-  console.log('req.session is ========', req.session);
-  console.log('req.session.user is ========', req.session.user);
-});
+// app.get('/testing', function(req, res) {
+//   res.send('hello world');
+//   console.log('req.cookies is ========', req.cookies);
+//   console.log('req.session is ========', req.session);
+//   console.log('req.session.user is ========', req.session.user);
+// });
 
-app.get('/recent-trips', (req, res) => {
-  console.log('req.body==============', req.body);
-  db.getReceiptsAndTrips({adminName: req.body.username, tripName: req.body.tripName})
-  .then( (results) => {
-    res.send(results);
-  });
-});
+app.get('/summaryReceipt', function(req, res) {
+  db.getReceiptsAndTrips()
+  //send back
+
+})
 
 //To be used for testing and seeing requests
 app.post('/createTripName', function(req, res) {
@@ -257,6 +256,22 @@ app.post('/summary', (req, res) => {
   db.createMemberSummary(req.body);
 });
 
+// this will duplicate with Duy's /recent
+app.post('/recent', (req, res) => {
+  console.log('req.body==============', req.body);
+  db.getReceiptsAndTrips({adminName: req.body.username, tripName: req.body.tripName})
+  .then( (results) => {
+    res.send(results);
+  });
+});
+
+// app.get('/recent-trips', (req, res) => {
+//   console.log('req.body==============', req.body);
+//   db.getReceiptsAndTrips({adminName: req.body.username, tripName: req.body.tripName})
+//   .then( (results) => {
+//     res.send(results);
+//   });
+// });
 
 //gVision.spliceReceipt produces an object of item : price pairs
 app.post('/vision', function(req, res) {

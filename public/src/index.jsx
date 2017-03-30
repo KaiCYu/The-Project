@@ -277,6 +277,7 @@ class App extends React.Component {
     this.setState({memberSum: memberSum});
   }
 
+
   memberExist(member, cb) {
     let exist = false;
     this.state.members.forEach((val, index) => {
@@ -423,6 +424,7 @@ class App extends React.Component {
               component={TripSummary}
               data={this.state}
               recent={this.getRecentTrip}
+              tripName={this.state.tripName}
             />
             <PrivateRoute
               path ="/friends"

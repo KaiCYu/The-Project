@@ -31,12 +31,13 @@ module.exports = {
     function(res) {
       console.log('success inserting into db', res);
     })
-  }
+  },
 
-  //send GET request to query db for trip info 
+  // send GET request to query db for trip info
   retrieveTripInfo: () => {
-    $.get('/recent-trips', function (res) {
+    $.get('/summaryReceipt', function (res) {
 
     })
   }
+
 }

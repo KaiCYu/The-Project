@@ -305,13 +305,10 @@ const getReceiptsAndTrips = (params) => {
   const queryStringGetAllTripsFromAdminName = `SELECT trips.name FROM ` + database + `trips WHERE trips.adminID = (SELECT members.id FROM ` + database + `members WHERE members.name = ?);`
   const queryStringGetTripIDFromTripName = `SELECT trips.id from ` + database + `trips WHERE trips.name = ?;`
 
+  const queryStringGetMemberIDFromTripID = `SELECT trips_members.memberID from ` + database + `trips_members WHERE trips_members.tripID = ?;`
+  const queryStringGetMemberNameFromMemberID = `SELECT members.name FROM ` + database + `members WHERE members.id = ?;`
 
-
-  
-  const queryStringGetMemberIDFromTripID = `SELECT trips_members.memberID from heroku_a258462d4ded143.trips_members WHERE trips_members.tripID = ?;`
-  const queryStringGetMemberNameFromMemberID = `SELECT members.name FROM heroku_a258462d4ded143.members WHERE members.id = ?;`
-
-  const queryStringGetReceiptNamesFromPayorIDAndTripID = `SELECT receipts.name FROM heroku_a258462d4ded143.receipts WHERE receipts.payorID = ? AND receipts.tripID = ?;`
+  const queryStringGetReceiptNamesFromPayorIDAndTripID = `SELECT receipts.name FROM ` + database + `receipts WHERE receipts.payorID = ? AND receipts.tripID = ?;`
 
   const queryStringGetSumBillFromReceiptName = `SELECT receipts.sum_bill FROM receipts WHERE receipts.name = ?;`
   const queryStringGetSumTaxFromReceiptName = `SELECT receipts.sum_tax FROM receipts WHERE receipts.name = ?;`

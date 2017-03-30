@@ -3,16 +3,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import TripEntry from './TripEntry.jsx';
-import Until from '../lib/util.js'
+import Util from '../lib/util.js'
 
 class TripSummary extends React.Component {
   constructor(props) {
     super(props);
+
   }
 
-  showRecentTrip() {
-    console.log('hi');
-    Util.retrieveTripInfo()
+  showRecentTrip(event) {
+    console.log(event.target.innerHTML);
+    //need to pass in trip name and admin name
+    Util.retrieveTripInfo({adminName: this.props.username, tripName: event.target.innerHTML})
+    // {adminName: this.props.username, tripName: this.props.tripName}
   }
 
   //ADD CLICK HANDLER TO RETREIVE STORED STATE FROM DB
@@ -23,7 +26,7 @@ class TripSummary extends React.Component {
         <h1>Most Recent Trips</h1>
         <div className='trip-summary'>{this.props.data.recent.map((item,index) => {
           return (
-            <p key={index} onClick={this.showRecentTrip}>{item.name}</p>
+            <p key={index} onClick={this.showRecentTrip.bind(this)}>{item.name}</p>
           )
         })}
         </div>
