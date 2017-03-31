@@ -197,8 +197,17 @@ app.get('*', checkAuthentication, authHelper, (req, res) => {
 // });
 
 app.get('/summaryReceipt', function(req, res) {
-  db.getReceiptsAndTrips()
-  //send back
+  // console.log('REQ IN SERVER: ', req);
+  db.getReceiptsAndTrips(params, function (err, data) {
+    if (err) {
+      console.log('error: ', err);
+      res.send(500);
+    } else {
+      //got data back
+    }
+
+  })
+  // send back
 
 })
 
@@ -253,6 +262,7 @@ app.post('/upload/delete', function(req, res) {
 });
 
 app.post('/summary', (req, res) => {
+  console.log('req inside server /summary', req);
   db.createMemberSummary(req.body);
 });
 
@@ -261,6 +271,7 @@ app.post('/recent', (req, res) => {
   console.log('req.body==============', req.body);
   db.getReceiptsAndTrips({adminName: req.body.username, tripName: req.body.tripName})
   .then( (results) => {
+    //RIGHT NOW, ONLY TRIP NAMES ARE SENT BACK. WE WANT ALL INFO TO SET STATE FOR RECENT TRIPS
     res.send(results);
   });
 });

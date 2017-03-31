@@ -34,7 +34,9 @@ module.exports = {
   },
 
   // send GET request to query db for trip info
-  retrieveTripInfo: () => {
+  retrieveTripInfo: (req) => {
+    console.log('REQUEST BODY: ', req.tripName);
+    console.log('REQUEST BODY: ', req.adminName);
     $.get('/summaryReceipt', function (res) {
 
     })

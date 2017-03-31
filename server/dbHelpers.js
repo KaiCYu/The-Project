@@ -296,8 +296,10 @@ const createMemberSummary = (params) => {
 
 const getReceiptsAndTrips = (params) => {
   let database = mysqlConfig.database;
+  //FOR LOCAL DB
   if (database = 'gewd') {
     database = '';
+    //FOR LIVE DATABASE
   } else if (database = 'heroku_a258462d4ded143') {
     database = 'heroku_a258462d4ded143' + '.';
   }
@@ -313,6 +315,14 @@ const getReceiptsAndTrips = (params) => {
   const queryStringGetSumBillFromReceiptName = `SELECT receipts.sum_bill FROM receipts WHERE receipts.name = ?;`
   const queryStringGetSumTaxFromReceiptName = `SELECT receipts.sum_tax FROM receipts WHERE receipts.name = ?;`
   const queryStringGetSumTipFromReceiptName = `SELECT receipts.sum_tip FROM receipts WHERE receipts.name = ?;`
+
+  //can populate this.props.data.items
+  const queryStringGetItemNamesFromReceiptID = `SELECT name FROM items WHERE receiptID = ?;`
+
+  //can populate this.data.members
+  //need trip ID from trip name for ? ==> (select id from trips where trip.name = 'VARIABLE')
+  const queryStringGetMembersArrayFromReciptID = `select * from trips_members, members where trips_members.tripID = ? and memberID=members.id;`
+
 
   let adminName = params.adminName;
   let tripName = params.tripName;
