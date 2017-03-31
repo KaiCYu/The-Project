@@ -75,7 +75,6 @@ class App extends React.Component {
     this.handleAddFriendChange = this.handleAddFriendChange.bind(this);
     this.handleAddFriend = this.handleAddFriend.bind(this);
     this.handleRemoveFriend = this.handleRemoveFriend.bind(this);
-    this.updateTripSummary = this.updateTripSummary.bind(this);
   }
 
   handleRemoveFriend(email) {
@@ -347,12 +346,6 @@ class App extends React.Component {
     });
   }
 
-  updateTripSummary(tripData) {
-    this.setState({
-      sumBill: tripData.sumBill
-    });
-  }
-
   render() {
     return (
       <div className='site-container'>
@@ -435,10 +428,9 @@ class App extends React.Component {
               path ="/recent-trips"
               isAuthenticated={this.state.isAuthenticated}
               component={TripSummary}
+              data={this.state}
               recent={this.getRecentTrip}
               tripName={this.state.tripName}
-              updateTripSummary={this.updateTripSummary}
-              data={this.state}
             />
             <PrivateRoute
               path ="/friends"
