@@ -291,7 +291,7 @@ const createMemberSummary = (params) => {
 }
 
 
-const getReceiptsAndTrips = (params) => {
+const getReceiptsAndTrips = (params, cb) => {
   let database = mysqlConfig.database;
   if (database = 'gewd') {
     database = '';
@@ -338,13 +338,14 @@ const getReceiptsAndTrips = (params) => {
   //   // })
   //   .catch( err => console.log('ERROR IN DB QUERY: ', err ));
 
-  db.queryAsync([queryStringGetAllTripsFromAdminName, adminName], function (err, tripsArray) {
+  db.query(queryStringGetAllTripsFromAdminName, [adminName], (err, tripsArray) => {
     if (err) {
-      console.log('ERROR getting trips from admin name: ', err);
+      console.log('ERROR getting trips from admin name: ');
+      cb(err, null);
     } else {
       console.log('trips array:', tripsArray);
-      return tripsArray;
-        // return tripsArray;
+      cb(null, tripsArray);
+      
       // for (var i = 0; i < tripsArray.length; i++) {
       //   db.queryAsync([queryStringGetItemNamesFromReceiptID, tripsArray[i]], function (err, itemNames) {
       //     console.log('item names:', itemNames);
@@ -355,12 +356,8 @@ const getReceiptsAndTrips = (params) => {
       // }
 
     }
-
-
-  })
-
-
-}
+  });
+};
 
 module.exports = {
   createNewUser,
