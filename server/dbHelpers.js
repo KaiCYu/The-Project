@@ -305,6 +305,7 @@ const getReceiptsAndTrips = (params) => {
   }
 
   const queryStringGetAllTripsFromAdminName = `SELECT trips.name FROM ` + database + `trips WHERE trips.adminID = (SELECT members.id FROM ` + database + `members WHERE members.name = ?);`
+
   const queryStringGetTripIDFromTripName = `SELECT trips.id from ` + database + `trips WHERE trips.name = ?;`
 
   const queryStringGetMemberIDFromTripID = `SELECT trips_members.memberID from ` + database + `trips_members WHERE trips_members.tripID = ?;`
@@ -316,26 +317,55 @@ const getReceiptsAndTrips = (params) => {
   const queryStringGetSumTaxFromReceiptName = `SELECT receipts.sum_tax FROM receipts WHERE receipts.name = ?;`
   const queryStringGetSumTipFromReceiptName = `SELECT receipts.sum_tip FROM receipts WHERE receipts.name = ?;`
 
-  //can populate this.props.data.items
+  //query for this.props.data.items
   const queryStringGetItemNamesFromReceiptID = `SELECT name FROM items WHERE receiptID = ?;`
 
-  //can populate this.data.members
+  //query for this.data.members
   //need trip ID from trip name for ? ==> (select id from trips where trip.name = 'VARIABLE')
   const queryStringGetMembersArrayFromReciptID = `select * from trips_members, members where trips_members.tripID = ? and memberID=members.id;`
 
-
+  console.log('PARAMS:', params);
   let adminName = params.adminName;
   let tripName = params.tripName;
 
-  return db.queryAsync(queryStringGetAllTripsFromAdminName, adminName)
-    .then( tripsArray => tripsArray )
-    // .then( tripsArray => {
-    //   return Promise.map( tripsArray, trip => {
-    //     return db.queryAsync(queryStringGetTripIDFromTripName, trip.name)
-    //       .then( tripID => tripID )
-    //   })
-    // })
-    .catch( err => console.log('ERROR: getAllTripsFromAdminName', err ));
+  // var results = {
+  //   // tripsArray: [],
+  //   // membersArray: [],
+  // }
+
+  // return db.queryAsync(queryStringGetAllTripsFromAdminName, adminName)
+  //   .then( tripsArray => tripsArray )
+  //   // .then()
+  //   // .then( tripsArray => {
+  //   //   return Promise.map( tripsArray, trip => {
+  //   //     return db.queryAsync(queryStringGetTripIDFromTripName, trip.name)
+  //   //       .then( tripID => tripID )
+  //   //   })
+  //   // })
+  //   .catch( err => console.log('ERROR IN DB QUERY: ', err ));
+
+  db.queryAsync([queryStringGetAllTripsFromAdminName, adminName], function (err, tripsArray) {
+    if (err) {
+      console.log('ERROR getting trips from admin name: ', err);
+    } else {
+      console.log('trips array:', tripsArray);
+      return tripsArray;
+        // return tripsArray;
+      // for (var i = 0; i < tripsArray.length; i++) {
+      //   db.queryAsync([queryStringGetItemNamesFromReceiptID, tripsArray[i]], function (err, itemNames) {
+      //     console.log('item names:', itemNames);
+      //
+          // return results;
+      // })
+      //
+      // }
+
+    }
+
+
+  })
+
+
 }
 
 module.exports = {

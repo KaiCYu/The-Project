@@ -216,6 +216,8 @@ class App extends React.Component {
     this.getRecentTrip();
   }
 
+  //TECH DEBT for POST request
+  //queries DB for trips. sets the state for all the trips
   getRecentTrip() {
     let user = this.state;
     $.ajax({
@@ -225,6 +227,7 @@ class App extends React.Component {
       success: (results) => {
         console.log('app component trips of this person', results);
         this.setState({
+          // NEED MORE PROPERTIES ON RESULTS TO SET STATE
           recent: results
         });
       },
@@ -233,6 +236,7 @@ class App extends React.Component {
       }
     });
   }
+
 
   calculateTotal() {
     let sum = 0;
@@ -362,6 +366,8 @@ class App extends React.Component {
               menuOnClick={this.menuOnClick}
               sideMenuState={this.state.sideMenuState}
               recent={this.getRecentTrip}
+              updateState={this.updateTripState}
+
             />
           <div className='content-container'>
             <PrivateRouteHome path="/" isAuthenticated={this.state.isAuthenticated}
