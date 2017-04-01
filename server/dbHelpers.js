@@ -322,30 +322,22 @@ const getReceiptsAndTrips = (params, cb) => {
   let adminName = params.adminName;
   let tripName = params.tripName;
 
-  // var results = {
-  //   // tripsArray: [],
-  //   // membersArray: [],
-  // }
-
-  // return db.queryAsync(queryStringGetAllTripsFromAdminName, adminName)
-  //   .then( tripsArray => tripsArray )
-  //   // .then()
-  //   // .then( tripsArray => {
-  //   //   return Promise.map( tripsArray, trip => {
-  //   //     return db.queryAsync(queryStringGetTripIDFromTripName, trip.name)
-  //   //       .then( tripID => tripID )
-  //   //   })
-  //   // })
-  //   .catch( err => console.log('ERROR IN DB QUERY: ', err ));
+  var results = {
+    // tripsArray: [],
+    // membersArray: [],
+  }
 
   db.query(queryStringGetAllTripsFromAdminName, [adminName], (err, tripsArray) => {
     if (err) {
       console.log('ERROR getting trips from admin name: ');
       cb(err, null);
     } else {
-      console.log('trips array:', tripsArray);
+      console.log('trips array:', tripsArray instanceof Array);
+      // tripsArray
+
+      results.tripsArray = tripsArray;
       cb(null, tripsArray);
-      
+
       // for (var i = 0; i < tripsArray.length; i++) {
       //   db.queryAsync([queryStringGetItemNamesFromReceiptID, tripsArray[i]], function (err, itemNames) {
       //     console.log('item names:', itemNames);
