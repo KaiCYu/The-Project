@@ -261,15 +261,25 @@ app.post('/summary', (req, res) => {
 
 // this will duplicate with Duy's /recent
 app.post('/recent', (req, res) => {
-  db.getReceiptsAndTrips({adminName: req.body.username, tripName: req.body.tripName})
-  .then( (results) => {
-    console.log('RESULTS: ', results);
-    //RIGHT NOW, ONLY TRIP NAMES ARE SENT BACK. WE WANT ALL INFO TO SET STATE FOR RECENT TRIPS
-    res.send(results);
-
-  })
-
+  db.getReceiptsAndTrips( {adminName: req.body.username, tripName: req.body.tripName} , function (err, results) {
+    if (err) {
+      console.log('ERROR in server /recent route: ', err);
+    } else {
+      console.log('RESULTS: ', results);
+      //RIGHT NOW, ONLY TRIP NAMES ARE SENT BACK. WE WANT ALL INFO TO SET STATE FOR RECENT TRIPS
+      res.send(results);
+    }
+  });
 });
+
+
+// app.get('/recent-trips', (req, res) => {
+//   console.log('req.body==============', req.body);
+//   db.getReceiptsAndTrips({adminName: req.body.username, tripName: req.body.tripName})
+//   .then( (results) => {
+//     res.send(results);
+//   });
+// });
 
 //gVision.spliceReceipt produces an object of item : price pairs
 app.post('/vision', function(req, res) {
