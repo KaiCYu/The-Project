@@ -13,7 +13,7 @@ class RecentTripSummary extends React.Component {
   }
 
   showRecentTripReceipt(event) {
-    console.log(event.target.innerHTML);
+    // console.log(event.target.innerHTML);
     //need to pass in trip name and admin name
     // Util.retrieveTripInfo({adminName: this.props.username, tripName: event.target.innerHTML})
     // this.props.updateRecentTripSummary({ sumBill: Number('25.00') });
@@ -22,7 +22,7 @@ class RecentTripSummary extends React.Component {
 
   //ADD CLICK HANDLER TO RETREIVE STORED STATE FROM DB
   render() {
-    console.log('PROPS IN RECENT TRIPS', this.props);
+    // console.log('PROPS IN RECENT TRIPS', this.props);
     return(
       <div className='page-container'>
         <h1>Most Recent Trips</h1>

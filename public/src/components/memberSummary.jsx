@@ -22,7 +22,7 @@ class MemberSummary extends React.Component {
   }
 
   render() {
-    console.log('PROPS IN MEMBER SUMMARY: ', this.props);
+    // console.log('PROPS IN MEMBER SUMMARY: ', this.props);
     return (
       <div className='member-summary-page'>
         <Link to='/additems' className='back-history'>Receipt Items</Link>
