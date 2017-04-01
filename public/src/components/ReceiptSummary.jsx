@@ -1,4 +1,4 @@
-//RECEIPT SUMMARY
+//RECEIPT SUMMARY (when clicking on recent trips)
 
 import React from 'react';
 import Util from '../lib/util.js';
@@ -14,11 +14,10 @@ class ReceiptSummary extends React.Component {
     this.perPerson = ((this.sumTax + this.sumTip) / this.memberCount);
   }
 
-  //change some classNames!
   render() {
     return (
       <div className='member-summary-page'>
-        <Link to='/additems' className='back-history'>Receipt Items</Link>
+        <Link to='/recent-trips' className='back-history'>Back</Link>
         <div className='container'>
           <div className='receipt-info'>
             <h2>Receipt Summary</h2>
