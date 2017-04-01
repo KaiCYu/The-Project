@@ -20,7 +20,6 @@ class RecentTripSummary extends React.Component {
 
   }
 
-  //ADD CLICK HANDLER TO RETREIVE STORED STATE FROM DB
   render() {
     // console.log('PROPS IN RECENT TRIPS', this.props);
     return(
