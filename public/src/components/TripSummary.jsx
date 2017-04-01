@@ -16,7 +16,8 @@ class TripSummary extends React.Component {
     console.log(event.target.innerHTML);
     //need to pass in trip name and admin name
     // Util.retrieveTripInfo({adminName: this.props.username, tripName: event.target.innerHTML})
-    // {adminName: this.props.username, tripName: this.props.tripName}
+    // this.props.updateTripSummary({ sumBill: Number('25.00') });
+
   }
 
   //ADD CLICK HANDLER TO RETREIVE STORED STATE FROM DB
@@ -27,11 +28,13 @@ class TripSummary extends React.Component {
         <h1>Most Recent Trips</h1>
         <div className='trip-summary'>{this.props.data.recent.map((item,index) => {
           return (
+            <div>
               <Link to="/summary"
                 key={index}
-                onClick={this.showRecentTripReceipt}
+                onClick={this.recent}
                 >{item.name}
-              </Link> <br></br>
+              </Link>
+              <br></br>
             </div>
           )
         })}
