@@ -152,11 +152,6 @@ app.get('/login', authHelper, (req, res) => {
   }
 });
 
-// app.post('/recent', function(req,res) {
-//   //call query function for latest trip,
-//   //res.send(object back to the client)
-// });
-
 app.get('/logout', authHelper, function(req, res) {
   req.logout();
   res.redirect('/');
@@ -166,6 +161,7 @@ app.get('/verify', authHelper, function(req, res) {
   console.log('LOCAL STORAGE', localStorage);
   db.getAllFriends([localStorage.user.email], (err, result) => {
     if (err) {
+      console.log('ERROR IN GET ALL FRIENDS: ', err);
       res.status(500).send(err);
     } else {
       let userInfo = {
@@ -188,20 +184,27 @@ app.get('*', checkAuthentication, authHelper, (req, res) => {
   }
 });
 
-app.get('/testing', function(req, res) {
-  res.send('hello world');
-  console.log('req.cookies is ========', req.cookies);
-  console.log('req.session is ========', req.session);
-  console.log('req.session.user is ========', req.session.user);
-});
+// app.get('/testing', function(req, res) {
+//   res.send('hello world');
+//   console.log('req.cookies is ========', req.cookies);
+//   console.log('req.session is ========', req.session);
+//   console.log('req.session.user is ========', req.session.user);
+// });
 
-app.get('/recent-trips', (req, res) => {
-  console.log('req.body==============', req.body);
-  db.getReceiptsAndTrips({adminName: req.body.username, tripName: req.body.tripName})
-  .then( (results) => {
-    res.send(results);
-  });
-});
+// app.get('/summaryReceipt', function(req, res) {
+//   // console.log('REQ IN SERVER: ', req);
+//   db.getReceiptsAndTrips(params, function (err, data) {
+//     if (err) {
+//       console.log('error: ', err);
+//       res.send(500);
+//     } else {
+//       //got data back
+//     }
+//
+//   })
+//   // send back
+//
+// })
 
 //To be used for testing and seeing requests
 app.post('/createTripName', function(req, res) {
@@ -254,9 +257,25 @@ app.post('/upload/delete', function(req, res) {
 });
 
 app.post('/summary', (req, res) => {
+  // console.log('req inside server /summary', req);
   db.createMemberSummary(req.body);
 });
 
+// this will duplicate with Duy's /recent
+app.post('/recent', (req, res) => {
+  // console.log('req.body==============', req.body);
+  db.getReceiptsAndTrips( {adminName: req.body.username, tripName: req.body.tripName} , function (err, results) {
+    if (err) {
+      console.log('ERROR in server /recent route: ', err);
+      res.status(500).send(err);
+    } else {
+      console.log('RESULTS: ', results);
+      //RIGHT NOW, ONLY TRIP NAMES ARE SENT BACK. WE WANT ALL INFO TO SET STATE FOR RECENT TRIPS
+      res.send(results);
+    }
+  });
+
+});
 
 //gVision.spliceReceipt produces an object of item : price pairs
 app.post('/vision', function(req, res) {
