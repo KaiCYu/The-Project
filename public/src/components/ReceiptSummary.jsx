@@ -1,10 +1,10 @@
-
+//RECEIPT SUMMARY
 
 import React from 'react';
 import Util from '../lib/util.js';
 import { BrowserRouter as Router, Route, Link, Redirect} from 'react-router-dom';
 
-class MemberSummary extends React.Component {
+class ReceiptSummary extends React.Component {
   constructor(props) {
     super(props);
     this.sumBill = Number(this.props.data.sumBill);
@@ -12,17 +12,10 @@ class MemberSummary extends React.Component {
     this.sumTip = Number(this.props.data.sumTip);
     this.memberCount = this.props.data.members.length;
     this.perPerson = ((this.sumTax + this.sumTip) / this.memberCount);
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleSubmit(event) {
-    // event.preventDefault();
-    Util.insertIntoDb(this.props.data);
-    this.props.calculateMemberSum();
-  }
-
+  //change some classNames!
   render() {
-    console.log('PROPS IN MEMBER SUMMARY: ', this.props);
     return (
       <div className='member-summary-page'>
         <Link to='/additems' className='back-history'>Receipt Items</Link>
@@ -80,18 +73,9 @@ class MemberSummary extends React.Component {
             </div>
 
           </div>
-          <div className='sumbit-btn-bar-outer-container'>
-            <div className='sumbit-btn-bar-inner-container'>
-              <Link
-                to='/breakdown'
-                onClick={this.handleSubmit}
-                className='btn btn-primary btn-wide btn-link'
-              >Submit</Link>
-            </div>
-          </div>
-      </div>
+        </div>
       </div>
     )
   }
 }
-export default MemberSummary;
+export default ReceiptSummary;

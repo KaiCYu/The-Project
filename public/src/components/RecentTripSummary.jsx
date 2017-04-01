@@ -1,4 +1,4 @@
-//RECENT TRIPS
+//RECENT TRIP SUMMARY
 
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -6,7 +6,7 @@ import TripEntry from './TripEntry.jsx';
 import Util from '../lib/util.js'
 import { BrowserRouter as Router, Route, Link, Redirect} from 'react-router-dom';
 
-class TripSummary extends React.Component {
+class RecentTripSummary extends React.Component {
   constructor(props) {
     super(props);
 
@@ -16,7 +16,7 @@ class TripSummary extends React.Component {
     console.log(event.target.innerHTML);
     //need to pass in trip name and admin name
     // Util.retrieveTripInfo({adminName: this.props.username, tripName: event.target.innerHTML})
-    // this.props.updateTripSummary({ sumBill: Number('25.00') });
+    // this.props.updateRecentTripSummary({ sumBill: Number('25.00') });
 
   }
 
@@ -29,7 +29,7 @@ class TripSummary extends React.Component {
         <div className='trip-summary'>{this.props.data.recent.map((item,index) => {
           return (
             <div>
-              <Link to="/summary"
+              <Link to="/receipt-summary"
                 key={index}
                 onClick={this.recent}
                 >{item.name}
@@ -44,4 +44,4 @@ class TripSummary extends React.Component {
   }
 }
 
-export default TripSummary;
+export default RecentTripSummary;
